@@ -1,4 +1,4 @@
-package model;
+package split;
 
 import javax.swing.JProgressBar;
 

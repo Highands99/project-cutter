@@ -1,8 +1,8 @@
 package view;
 
-import model.*;
-
 import javax.swing.*;
+
+import split.*;
 
 import java.awt.Cursor;
 import java.awt.Dimension;

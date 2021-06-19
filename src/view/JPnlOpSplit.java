@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.JPanel;
 
-import model.Splitter;
+import split.Splitter;
 
 public abstract class JPnlOpSplit extends JPanel {
 	private static final long serialVersionUID = 4L;

@@ -8,8 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import model.CryptSplitter;
-import model.Splitter;
+import split.CryptSplitter;
+import split.Splitter;
 
 public class JPnlCrySplit  extends JPnlOpSplit {
 	

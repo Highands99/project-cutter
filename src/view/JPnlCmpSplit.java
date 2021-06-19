@@ -11,8 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import model.CompressionSplitter;
-import model.Splitter;
+import split.CompressionSplitter;
+import split.Splitter;
 
 public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 	

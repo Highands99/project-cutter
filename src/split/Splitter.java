@@ -1,4 +1,4 @@
-package model;
+package split;
 
 import java.io.File;
 import java.io.FileInputStream;

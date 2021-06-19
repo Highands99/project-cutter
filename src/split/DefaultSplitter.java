@@ -1,4 +1,4 @@
-package model;
+package split;
 
 
 public class DefaultSplitter extends Splitter {

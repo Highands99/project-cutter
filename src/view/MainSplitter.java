@@ -13,12 +13,12 @@ import model.*;*/
 public class MainSplitter {
 
 	public static void main(String[] args) {
-		JFrmMain mainF = new JFrmMain();
+		/*JFrmMain mainF = new JFrmMain();
 		
 		mainF.setResizable(false);
 		mainF.setLocationRelativeTo(null);
 			
-		mainF.setVisible(true);
+		mainF.setVisible(true);*/
 		
 		/*lol a = new lol();
 		lel b = new lel("hoi");
@@ -61,6 +61,9 @@ public class MainSplitter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		
+		String a = "va.cry";
+		System.out.println(a.lastIndexOf(".cry"));
 		
 	}
 

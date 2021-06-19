@@ -9,7 +9,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import model.*;
+import split.*;
 
 public class JPnlSwitch extends JPanel implements ActionListener {
 	

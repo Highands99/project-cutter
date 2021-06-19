@@ -6,8 +6,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import model.NPartSplitter;
-import model.Splitter;
+import split.NPartSplitter;
+import split.Splitter;
 
 public class JPnlNPSplit  extends JPnlOpSplit {
 	
