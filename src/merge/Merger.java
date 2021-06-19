@@ -39,9 +39,9 @@ public class Merger {
 	
 	
 	private void setOriginalFilePath(String[] path, int maxIndex) {
-		this.originalFilePath.concat(path[0]);
+		this.originalFilePath = this.originalFilePath.concat(path[0]);
 		for (int i=1; i<maxIndex;i++)
-			this.originalFilePath.concat("." + path[i]);
+			this.originalFilePath = this.originalFilePath.concat("." + path[i]);
 	}
 	
 	

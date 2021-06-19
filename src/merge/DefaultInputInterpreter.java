@@ -29,10 +29,8 @@ public class DefaultInputInterpreter extends InputInterpreter {
 		File part = new File(this.headPath + "." + this.nParts + "." + Splitter.EXTENSION);
 		
 		if (part.canRead() && part.length()>0)
-			try {
-				FileInputStream fin = new FileInputStream(part);
+			try (FileInputStream fin = new FileInputStream(part)) {
 				returnBytes = fin.readAllBytes();
-				fin.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

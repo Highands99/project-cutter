@@ -80,7 +80,7 @@ public class JPnlSplit extends JPanel implements ActionListener, ItemListener {
 		if (this.lastItemSelected>=0) {
 			Splitter spl = pnlOp.getSplitter();
 
-			if (spl != null && spl.getFilePath() == this.files.get(this.lastItemSelected).getFilePath()) 
+			if (spl != null && spl.getFilePath().equals(this.files.get(this.lastItemSelected).getFilePath())) 
 				this.files.set(this.lastItemSelected, spl);
 				
 		}
@@ -165,12 +165,12 @@ public class JPnlSplit extends JPanel implements ActionListener, ItemListener {
 			
 			for (Splitter s : files) {	
 				tmp = s.check();
-				if (tmp != "")
+				if (!tmp.equals(""))
 					warningMessage += s.getFileName() + ": " + s.check() + "\n";
 			}
 				
 			
-			if (warningMessage != "") 
+			if (!warningMessage.equals("")) 
 				JOptionPane.showMessageDialog(null, warningMessage, "Errore inserimento dati", JOptionPane.ERROR_MESSAGE);
 			
 			else {
@@ -218,6 +218,7 @@ public class JPnlSplit extends JPanel implements ActionListener, ItemListener {
 					t.join();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+					t.interrupt();
 				}
 			}
 			

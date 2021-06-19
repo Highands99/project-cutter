@@ -76,23 +76,23 @@ public class JPnlSwitch extends JPanel implements ActionListener {
 	
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand() != this.lastRdbSelected) {
+		if (!e.getActionCommand().equals(this.lastRdbSelected)) {
 			this.lastRdbSelected = e.getActionCommand();
 			CardLayout cl = (CardLayout) (pnlCards.getLayout());
 			
-			if (e.getActionCommand() == rdbDefOp.getText()) {
+			if (e.getActionCommand().equals(rdbDefOp.getText())) {
 				pnlDef.setSplitter(lastFileSelected);
 			}
 			
-			else if (e.getActionCommand() == rdbCryOp.getText()) {
+			else if (e.getActionCommand().equals(rdbCryOp.getText())) {
 				pnlCry.setSplitter(lastFileSelected);
 			}
 	
-			else if (e.getActionCommand() == rdbCmpOp.getText()) {
+			else if (e.getActionCommand().equals(rdbCmpOp.getText())) {
 				pnlCmp.setSplitter(lastFileSelected);
 			}
 			
-			else if (e.getActionCommand() == rdbNpOp.getText()) {
+			else if (e.getActionCommand().equals(rdbNpOp.getText())) {
 				pnlNP.setSplitter(lastFileSelected);
 			}
 			

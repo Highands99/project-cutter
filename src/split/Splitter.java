@@ -72,9 +72,9 @@ public abstract class Splitter {
 	
 	
 	protected void writePart(byte[] b, File part) throws IOException {
-		FileOutputStream pfout = new FileOutputStream(part);
-		pfout.write(b);
-		pfout.close();
+		try (FileOutputStream pfout = new FileOutputStream(part)) {
+			pfout.write(b);
+		}
 	}
 	
 	
@@ -92,9 +92,7 @@ public abstract class Splitter {
 			
 			long remainingSize = this.getFileSize();
 			int partsCounter = 0;
-			
-			try {
-				FileInputStream fin = new FileInputStream(this.getFile());
+			try (FileInputStream fin = new FileInputStream(this.getFile())){
 				
 				while (remainingSize > 0) {
 					String partPath = this.getFilePath() + "." + (partsCounter+1) + this.getExtension();
@@ -113,8 +111,6 @@ public abstract class Splitter {
 				}
 				
 				returnMessage = "";
-				fin.close();
-				
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 				returnMessage += "File multimediale non trovato";
@@ -125,6 +121,7 @@ public abstract class Splitter {
 				e.printStackTrace();
 				returnMessage += "Errore";
 			}
+			
 		}
 		
 		return returnMessage;
