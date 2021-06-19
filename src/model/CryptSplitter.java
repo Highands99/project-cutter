@@ -13,7 +13,7 @@ public class CryptSplitter extends DefaultSplitter {
 
 	private String key;
 	private Cipher encoder;
-	public static String EXTENSION = ".cry" + Splitter.EXTENSION;
+	public static String EXTENSION = "cry";
 	
 	
 	public CryptSplitter(String fp) {
@@ -39,7 +39,7 @@ public class CryptSplitter extends DefaultSplitter {
 	
 
 	public String getExtension() {
-		return CryptSplitter.EXTENSION;
+		return "." + CryptSplitter.EXTENSION + "." + Splitter.EXTENSION;
 	}
 	
 	

@@ -10,7 +10,7 @@ import java.io.IOException;
 public abstract class Splitter {
 	
 	private File file;
-	public static String EXTENSION = ".par";
+	public static String EXTENSION = "par";
 	
 	
 	protected Splitter(String fp) {
@@ -23,7 +23,7 @@ public abstract class Splitter {
 	}
 	
 	public String getExtension() {
-		return Splitter.EXTENSION;
+		return "." + Splitter.EXTENSION;
 	}
 	
 	
@@ -97,7 +97,7 @@ public abstract class Splitter {
 				FileInputStream fin = new FileInputStream(this.getFile());
 				
 				while (remainingSize > 0) {
-					String partPath = this.getFilePath() + (partsCounter+1) + this.getExtension();
+					String partPath = this.getFilePath() + "." + (partsCounter+1) + this.getExtension();
 					File part = new File(partPath);
 					
 					long partSize = this.getPartSize(partsCounter);
