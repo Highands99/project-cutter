@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public abstract class Splitter {
@@ -71,9 +72,10 @@ public abstract class Splitter {
 	}
 	
 	
-	protected void writePart(byte[] b, File part) throws IOException {
+	protected void writePart(ArrayList<byte[]> b, File part) throws IOException {
 		try (FileOutputStream pfout = new FileOutputStream(part)) {
-			pfout.write(b);
+			for (byte[] by : b)
+				pfout.write(by);
 		}
 	}
 	
@@ -101,10 +103,23 @@ public abstract class Splitter {
 					long partSize = this.getPartSize(partsCounter);
 					if (partSize <= 0)
 						partSize = remainingSize;
-					//TODO ciclo per la conversione da int a long
-					byte[] writingBytes = this.processByte(fin.readNBytes((int)partSize));
+
+					long partSizeBuffered = partSize;
+					ArrayList<byte[]> buffer = new ArrayList<byte[]>();
 					
-					this.writePart(writingBytes, part);
+					while (partSizeBuffered>0) {
+						if (partSizeBuffered>Integer.MAX_VALUE) {
+							buffer.add(this.processByte(fin.readNBytes(Integer.MAX_VALUE)));
+							partSizeBuffered -= Integer.MAX_VALUE;
+						}
+						
+						else {
+							buffer.add(this.processByte(fin.readNBytes((int)partSizeBuffered)));
+							partSizeBuffered = 0;
+						}
+					}
+					
+					this.writePart(buffer, part);
 					
 					partsCounter++;
 					remainingSize -= partSize;

@@ -3,7 +3,7 @@ package split;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -60,9 +60,10 @@ public class CompressionSplitter extends Splitter {
 	}
 	
 	
-	protected void writePart(byte[] b, File part) throws IOException {
+	protected void writePart(ArrayList<byte[]> b, File part) throws IOException {
 		zipFolder.putNextEntry(new ZipEntry(part.getName()));
-		zipFolder.write(b);
+		for (byte[] by : b)
+			zipFolder.write(by);
 		zipFolder.closeEntry();
 	}
 	
