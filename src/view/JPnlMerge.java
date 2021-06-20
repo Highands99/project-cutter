@@ -39,6 +39,9 @@ public class JPnlMerge extends JPanel implements ActionListener {
 			}
 		});
 		
+		txfSrc.setEnabled(false);
+		this.btnRun.setEnabled(false);
+		
 		pnlSrc.add(txfSrc);
 		pnlSrc.add(btnSrc);
 		
@@ -66,6 +69,8 @@ public class JPnlMerge extends JPanel implements ActionListener {
 						fi.setPassword(txfKey.getText());
 					
 					this.interpreter = fi;
+					this.txfSrc.setText(fc.getSelectedFile().getAbsolutePath());
+					this.btnRun.setEnabled(true);
 				}
 	        }
 		}
