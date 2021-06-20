@@ -101,7 +101,7 @@ public abstract class Splitter {
 					long partSize = this.getPartSize(partsCounter);
 					if (partSize <= 0)
 						partSize = remainingSize;
-					
+					//TODO ciclo per la conversione da int a long
 					byte[] writingBytes = this.processByte(fin.readNBytes((int)partSize));
 					
 					this.writePart(writingBytes, part);
