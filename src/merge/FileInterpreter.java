@@ -9,7 +9,7 @@ public class FileInterpreter {
 	private String originalFilePath = "";
 	
 	
-	protected FileInterpreter(String filePath) {
+	public FileInterpreter(String filePath) {
 		this.setMerger(filePath);
 	}
 	
@@ -19,8 +19,8 @@ public class FileInterpreter {
 		String[] fileNameParts = filePath.split(".");
 		
 		if (fileNameParts[fileNameParts.length-1].equals("zip") && fileNameParts[fileNameParts.length-2].equals(Splitter.EXTENSION)) {
-			this.merger = new CompressionMerger(filePath);
 			this.setOriginalFilePath(fileNameParts, fileNameParts.length-2);
+			this.merger = new CompressionMerger(originalFilePath);
 		}
 		
 		else if (fileNameParts[fileNameParts.length-1].equals(Splitter.EXTENSION)) {
@@ -38,6 +38,12 @@ public class FileInterpreter {
 	}
 	
 	
+	public void setPassword(String psw) {
+		if (merger instanceof CryptMerger)
+			((CryptMerger) merger).setKey(psw);
+	}
+	
+	
 	private void setOriginalFilePath(String[] path, int maxIndex) {
 		this.originalFilePath = this.originalFilePath.concat(path[0]);
 		for (int i=1; i<maxIndex;i++)
@@ -45,10 +51,8 @@ public class FileInterpreter {
 	}
 	
 	
-	protected boolean check() {
-		boolean returnFlag = false;
-		
-		return returnFlag;
+	public String check() {
+		return this.merger.check();
 	}
 	
 	public String merge() {
