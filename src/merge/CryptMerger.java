@@ -18,8 +18,18 @@ import split.CryptSplitter;
 import split.Splitter;
 
 
+/**
+ * Oggetto che permette di ottenere il file originale unendo tutte
+ * le parti generate in precedenza con CryptSplitter a patto che si 
+ * trovino tutti nella stessa cartella
+ * @author Filippo Altimani
+ * @see CryptSplitter
+ */
 public class CryptMerger extends Merger {
 	
+	/**
+	 * Chiave di decriptazione
+	 */
 	private String key;
 	
 	public CryptMerger(String originalFilePath) {
@@ -27,11 +37,19 @@ public class CryptMerger extends Merger {
 	}
 	
 	
+	/**
+	 * Imposta la chiave di decriptazione desiderata
+	 * @param k La chiave di decriptazione che si vuole inserire
+	 */
 	public void setKey(String k) {
 		this.key = k;
 	}
 	
 	
+	/**
+	 * Controlla che la chiave key sia della lunghezza esatta
+	 */
+	@Override
 	public String check() {
 		String returnMessage = super.check();
 

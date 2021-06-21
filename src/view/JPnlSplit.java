@@ -166,7 +166,7 @@ public class JPnlSplit extends JPanel implements ActionListener, ItemListener {
 			for (Splitter s : files) {	
 				tmp = s.check();
 				if (!tmp.equals(""))
-					warningMessage += s.getFileName() + ": " + s.check() + "\n";
+					warningMessage += s.getFileName() + ": " + tmp + "\n";
 			}
 				
 			

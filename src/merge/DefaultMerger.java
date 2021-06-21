@@ -7,6 +7,15 @@ import java.io.IOException;
 
 import split.Splitter;
 
+
+/**
+ * Oggetto che permette di ottenere il file originale unendo tutte
+ * le parti generate in precedenza con DefaultSplitter o NPartSplitter a patto che si 
+ * trovino tutti nella stessa cartella
+ * @author Filippo Altimani
+ * @see DefaultSplitter
+ * @see NPartSplitter
+ */
 public class DefaultMerger extends Merger {
 	
 	public DefaultMerger(String originalFilePath) {

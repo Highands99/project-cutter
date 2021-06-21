@@ -2,7 +2,7 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,9 +17,10 @@ import split.Splitter;
 public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 	
 	private static final long serialVersionUID = 7L;
-	private JLabel lblSize, lblRemainSize;
-	private JTextField txfSize, txfRemainSize;
-	private JButton btnAddPart, btnRmvPart;
+	private JTextField txfSize;
+	private JTextField txfRemainSize;
+	private JButton btnAddPart;
+	private JButton btnRmvPart;
 	private JComboBox<Long> cmbParts;
 	private CompressionSplitter spl;
 	
@@ -38,13 +39,13 @@ public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
 		JPanel pnlSize = new JPanel();
-		lblSize = new JLabel("Dimensione (B):");
+		JLabel lblSize = new JLabel("Dimensione (B):");
 		txfSize = new JTextField("",4);
 		btnAddPart = new JButton("+");
 		cmbParts = new JComboBox<Long>();
 		btnRmvPart = new JButton("-");
 		JPanel pnlRemainSize = new JPanel();
-		lblRemainSize = new JLabel("Dimensione rimasta (B):");
+		JLabel lblRemainSize = new JLabel("Dimensione rimasta (B):");
 		txfRemainSize = new JTextField("", 7);
 		
 		btnAddPart.addActionListener(this);
@@ -98,7 +99,7 @@ public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 		btnRmvPart.setEnabled(flag);
 		txfRemainSize.setEnabled(flag);
 		
-		if (flag) {
+		if (flag && this.spl != null) {
 			cmbParts.removeAllItems();
 			Long size = this.spl.getPartSize(0);
 			int i = 0;
@@ -165,7 +166,7 @@ public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 	public CompressionSplitter getSplitter() {
 		if (this.spl != null) {
 			int size = cmbParts.getItemCount();
-			Vector<Long> ps = new Vector<Long>();
+			ArrayList<Long> ps = new ArrayList<>();
 			for (int i = 0; i < size; i++)
 				ps.add(cmbParts.getItemAt(i));
 			this.spl.setPartsList(ps);

@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"merge","l":"CompressionMerger"},{"p":"merge","l":"CryptMerger"},{"p":"merge","l":"DefaultMerger"},{"p":"merge","l":"FileInterpreter"},{"p":"merge","l":"Merger"}]

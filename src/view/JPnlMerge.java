@@ -27,6 +27,7 @@ public class JPnlMerge extends JPanel implements ActionListener {
 		lblKey = new JLabel("Chiave (16 chr):");
 		txfKey = new JTextField("", 14);
 		btnRun = new JButton("Ricomponi");
+		interpreter = new FileInterpreter();
 		
 		btnSrc.addActionListener(this);
 		btnRun.addActionListener(this);
@@ -40,7 +41,7 @@ public class JPnlMerge extends JPanel implements ActionListener {
 		});
 		
 		txfSrc.setEnabled(false);
-		this.btnRun.setEnabled(false);
+		btnRun.setEnabled(false);
 		
 		pnlSrc.add(txfSrc);
 		pnlSrc.add(btnSrc);
@@ -64,11 +65,12 @@ public class JPnlMerge extends JPanel implements ActionListener {
 			
 			if (response == JFileChooser.APPROVE_OPTION) {
 				if (fc.getSelectedFile().length()>0) {
-					FileInterpreter fi = new FileInterpreter(fc.getSelectedFile().getAbsolutePath());
-					if (!this.txfKey.getText().equals(""))
-						fi.setPassword(txfKey.getText());
 					
-					this.interpreter = fi;
+					this.interpreter.setMerger(fc.getSelectedFile().getAbsolutePath());
+					
+					if (!this.txfKey.getText().equals(""))
+						this.interpreter.setPassword(txfKey.getText());
+					
 					this.txfSrc.setText(fc.getSelectedFile().getAbsolutePath());
 					this.btnRun.setEnabled(true);
 				}

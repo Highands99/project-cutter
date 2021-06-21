@@ -11,16 +11,35 @@ import java.util.zip.ZipFile;
 import split.Splitter;
 
 
+/**
+ * Oggetto che permette di ottenere il file originale da una cartella compressa, 
+ * contenente le sue parti, creata in precedenza con CompressionSplitter
+ * @author Filippo Altimani
+ * @see CompressionSplitter
+ *
+ */
 public class CompressionMerger extends Merger {
 	
+	/**
+	 * File zip contenente le parti del file originale 
+	 */
 	private ZipFile zipFile;
+	
+	/**
+	 * Le parti compresse del file originale
+	 */
 	private Enumeration<? extends ZipEntry> entries;
+	
 	
 	public CompressionMerger(String originalFilePath) {
 		super(originalFilePath);
 	}
 	
 	
+	/**
+	 * Inizializza il file zip
+	 */
+	@Override
 	public void setOriginalFile(String originalFilePath) {
 		super.setOriginalFile(originalFilePath);
 		
@@ -37,6 +56,10 @@ public class CompressionMerger extends Merger {
 	}
 	
 	
+	/**
+	 * Controlla che il file zip abbia delle entries
+	 */
+	@Override
 	public String check() {
 		String returnMessage = super.check();
 		

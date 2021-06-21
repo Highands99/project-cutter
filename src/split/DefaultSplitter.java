@@ -1,24 +1,47 @@
 package split;
 
-
+/**
+ * Oggetto che consente la divisione in più parti di un file
+ * specificando la dimensione uguale per ogni parte
+ * @author Filippo Altimani
+ *
+ */
 public class DefaultSplitter extends Splitter {
 	
+	/**
+	 * Dimensione in byte uguale per ogni parte
+	 */
 	private long size;
 
 	
+	/**
+	 * Costruisce a partire dal percorso del file da dividere e imposta la dimensione 
+	 * uguale alla metà della dimensione del file da dividere
+	 * @param fp Percorso del file da dividere
+	 */
 	public DefaultSplitter(String fp) {
 		super(fp);
 		this.setPartSize(0);
 	}
 	
 	
-	public DefaultSplitter(String fp, int s) {
+	/**
+	 * Costruisce a partire dal percorso del file da dividere e imposta la dimensione 
+	 * @param fp Percorso del file da dividere
+	 * @param s Dimensione uguale per ogni parte
+	 */
+	public DefaultSplitter(String fp, long s) {
 		super(fp);
 		this.setPartSize(s);
 	}
 	
 	
-	public void setPartSize(int s) {
+	/**
+	 * Imposta la dimensione uguale per ogni parte, se minore o uguale a 0
+	 * viene impostata uguale alla metà della dimensione del file da dividere
+	 * @param s Dimensione uguale per ogni parte
+	 */
+	public void setPartSize(long s) {
 		if (s>0) 
 			this.size = s;
 		else {
@@ -28,16 +51,18 @@ public class DefaultSplitter extends Splitter {
 	}
 	
 	
+	/**
+	 * Ritorna la dimensione uguale per ogni parte
+	 */
 	public long getPartSize() {
 		return this.size;
 	}
 	
 	
-	public long getPartSize(int partsCounter) {
-		return this.getPartSize();
-	}
-	
-
+	/**
+	 * Controlla che la dimensione uguale per ogni parte sia corretta
+	 */
+	@Override
 	public String check() {
 		String returnMessage = super.check();
 		
