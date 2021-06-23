@@ -18,6 +18,8 @@ import java.util.zip.ZipOutputStream;
  */
 public class CompressionSplitter extends Splitter {
 	
+	private static final long serialVersionUID = 24L;
+
 	/**
 	 *  Lista di dimensioni in byte per ogni parte
 	 */

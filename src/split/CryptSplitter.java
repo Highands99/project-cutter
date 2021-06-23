@@ -24,6 +24,8 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class CryptSplitter extends DefaultSplitter {
 
+	private static final long serialVersionUID = 23L;
+
 	/**
 	 * Chiave per la codifica AES dei byte di ogni parte
 	 */

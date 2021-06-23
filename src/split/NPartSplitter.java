@@ -9,6 +9,8 @@ package split;
  */
 public class NPartSplitter extends Splitter {
 	
+	private static final long serialVersionUID = 21L;
+	
 	/**
 	 * Numero di parti di dimensione uguale
 	 */

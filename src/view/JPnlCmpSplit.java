@@ -192,9 +192,9 @@ public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 			
 		int remainSize = (int)this.spl.getFileSize()-totSize;
 		
-		btnAddPart.setEnabled(((remainSize<=0) ? false : true));
+		btnAddPart.setEnabled(!(remainSize<=0));
 		
-		btnRmvPart.setEnabled(((totSize==0) ? false : true));
+		btnRmvPart.setEnabled(!(totSize==0));
 		
 		txfRemainSize.setText(Integer.toString(remainSize));
 	}

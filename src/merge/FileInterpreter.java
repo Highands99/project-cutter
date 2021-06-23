@@ -1,5 +1,7 @@
 package merge;
 
+import java.io.Serializable;
+
 import split.CryptSplitter;
 import split.Splitter;
 
@@ -10,8 +12,10 @@ import split.Splitter;
  * @author Filippo Altimani
  *
  */
-public class FileInterpreter {
+public class FileInterpreter implements Serializable {
 	
+	private static final long serialVersionUID = 40L;
+
 	/**
 	 * Oggetto che permette di ricomporre il file originale
 	 */
