@@ -18,9 +18,6 @@ import split.Splitter;
  */
 public class DefaultMerger extends Merger {
 	
-	private static final long serialVersionUID = 31L;
-
-
 	public DefaultMerger(String originalFilePath) {
 		super(originalFilePath);
 	}

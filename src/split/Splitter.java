@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -13,10 +12,8 @@ import java.util.ArrayList;
  * @author Filippo Altimani
  *
  */
-public abstract class Splitter implements Serializable {
+public abstract class Splitter {
 	
-	private static final long serialVersionUID = 20L;
-
 	/**
 	 * File da dividere
 	 */

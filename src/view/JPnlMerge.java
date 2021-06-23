@@ -46,7 +46,7 @@ public class JPnlMerge extends JPanel implements ActionListener {
 	 * Oggetto in grado di capire il tipo di divisione ricevuta da un file
 	 * partendo dal nome di una delle sue parti
 	 */
-	private FileInterpreter interpreter;
+	transient private FileInterpreter interpreter;
 	
 	/**
 	 * Il layout del pannello e il BoxLayout

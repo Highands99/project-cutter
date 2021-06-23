@@ -8,8 +8,6 @@ package split;
  */
 public class DefaultSplitter extends Splitter {
 	
-	private static final long serialVersionUID = 22L;
-	
 	/**
 	 * Dimensione in byte uguale per ogni parte
 	 */

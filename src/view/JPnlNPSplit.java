@@ -27,7 +27,7 @@ public class JPnlNPSplit  extends JPnlOpSplit {
 	/**
 	 * NPartSplitter da modificare/creare
 	 */
-	private NPartSplitter spl;
+	transient private NPartSplitter spl;
 	
 	public JPnlNPSplit() {
 		super();

@@ -55,7 +55,7 @@ public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 	/**
 	 * CompressionSplitter da modificare/creare
 	 */
-	private CompressionSplitter spl;
+	transient private CompressionSplitter spl;
 	
 	
 	public JPnlCmpSplit () {
@@ -192,9 +192,9 @@ public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 			
 		int remainSize = (int)this.spl.getFileSize()-totSize;
 		
-		btnAddPart.setEnabled(!(remainSize<=0));
+		btnAddPart.setEnabled(remainSize>0);
 		
-		btnRmvPart.setEnabled(!(totSize==0));
+		btnRmvPart.setEnabled(totSize!=0);
 		
 		txfRemainSize.setText(Integer.toString(remainSize));
 	}

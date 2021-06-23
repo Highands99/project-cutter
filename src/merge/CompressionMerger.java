@@ -20,8 +20,6 @@ import split.Splitter;
  */
 public class CompressionMerger extends Merger {
 	
-	private static final long serialVersionUID = 33L;
-
 	/**
 	 * File zip contenente le parti del file originale 
 	 */

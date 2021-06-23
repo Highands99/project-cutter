@@ -1,7 +1,6 @@
 package merge;
 
 import java.io.File;
-import java.io.Serializable;
 
 /**
  * Classe astratta per permettere di ottenere ottenere il
@@ -9,10 +8,7 @@ import java.io.Serializable;
  * @author Filippo Altimani
  *
  */
-public abstract class Merger implements Serializable {
-	
-
-	private static final long serialVersionUID = 30L;
+public abstract class Merger {
 	
 	/**
 	 * File originale da creare

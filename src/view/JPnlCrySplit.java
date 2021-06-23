@@ -34,7 +34,7 @@ public class JPnlCrySplit  extends JPnlOpSplit {
 	/**
 	 * CryptSplitter da modificare/creare
 	 */
-	private CryptSplitter spl;
+	transient private CryptSplitter spl;
 	
 	
 	public JPnlCrySplit() {

@@ -26,8 +26,6 @@ import split.Splitter;
  */
 public class CryptMerger extends Merger {
 	
-	private static final long serialVersionUID = 32L;
-	
 	/**
 	 * Chiave di decriptazione
 	 */
