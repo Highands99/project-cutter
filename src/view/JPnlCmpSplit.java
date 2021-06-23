@@ -55,7 +55,7 @@ public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 	/**
 	 * CompressionSplitter da modificare/creare
 	 */
-	transient private CompressionSplitter spl;
+	private transient CompressionSplitter spl;
 	
 	
 	public JPnlCmpSplit () {

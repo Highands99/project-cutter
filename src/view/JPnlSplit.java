@@ -55,7 +55,7 @@ public class JPnlSplit extends JPanel implements ActionListener, ItemListener {
 	/**
 	 * Lista contenere gli oggetti per dividere i file
 	 */
-	private Vector<Splitter> files;
+	private transient Vector<Splitter> files;
 	
 	/**
 	 * Pannello per permettere di cambiare ed inserire le modalità di divisione 

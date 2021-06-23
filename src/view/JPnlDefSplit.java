@@ -26,7 +26,7 @@ public class JPnlDefSplit extends JPnlOpSplit {
 	/**
 	 * DefaultSplitter da modificare/creare
 	 */
-	transient private DefaultSplitter spl;
+	private transient DefaultSplitter spl;
 	
 	
 	public JPnlDefSplit() {
