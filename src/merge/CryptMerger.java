@@ -8,9 +8,8 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.CipherInputStream;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -23,7 +22,7 @@ import split.Splitter;
  * le parti generate in precedenza con CryptSplitter a patto che si 
  * trovino tutti nella stessa cartella
  * @author Filippo Altimani
- * @see CryptSplitter
+ * @see split.CryptSplitter
  */
 public class CryptMerger extends Merger {
 	
@@ -34,6 +33,7 @@ public class CryptMerger extends Merger {
 	
 	public CryptMerger(String originalFilePath) {
 		super(originalFilePath);
+		this.key = "";
 	}
 	
 	
@@ -70,30 +70,36 @@ public class CryptMerger extends Merger {
 			
 			try {
 				Cipher decoder = Cipher.getInstance("AES/CBC/PKCS5Padding");
-				decoder.init(Cipher.DECRYPT_MODE,secretKey, decoder.getParameters());
+				decoder.init(Cipher.DECRYPT_MODE, secretKey, decoder.getParameters());
 				
 				try (FileOutputStream out = new FileOutputStream(originalFile)) {
 					File part;
 					
-					while ((part = new File(this.originalFile.getAbsolutePath() + "." + nParts + "." + CryptSplitter.EXTENSION + Splitter.EXTENSION)).canRead() && part.length()>0) {
-						try (FileInputStream fin = new FileInputStream(part)) {
+					while ((part = new File(this.originalFile.getAbsolutePath() + "." + nParts + "." + CryptSplitter.EXTENSION + "." + Splitter.EXTENSION)).canRead() && part.length()>0) {
 
-							byte[] dataBytes = new byte[2048];
+						try (
+								FileInputStream fIn = new FileInputStream(part);
+								CipherInputStream cryIn = new CipherInputStream(fIn, decoder);
+							) {
 							
-							while (fin.read(dataBytes)>0)
-								out.write(decoder.doFinal(dataBytes));
-						}
+							byte[] fileIv = new byte[16];
+							cryIn.read(fileIv);
+							
+							byte[] dataBytes;
+							while ((dataBytes=cryIn.readAllBytes()).length>0)
+								out.write(dataBytes);
+						} 
+						
+						nParts++;
 					}
 				}
+				
 			} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidAlgorithmParameterException e) {
 				e.printStackTrace();
 				returnMessage = "Errore nell'inizializzazione del dencoder\n";
 			} catch (IOException e) {
 				e.printStackTrace();
 				returnMessage += "Errore I/O";
-			} catch (IllegalBlockSizeException | BadPaddingException e) {
-				e.printStackTrace();
-				returnMessage += "Errore nella decodifica del file";
 			}
 		}
 

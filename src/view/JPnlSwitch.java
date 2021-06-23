@@ -11,13 +11,83 @@ import javax.swing.JRadioButton;
 
 import split.*;
 
+
+/**
+ * Pannello per gestire il cambiamento dell'interfaccia in base alla scelta
+ * sul tipo di divisione da applicare ad un file
+ * @author Filippo Altimani
+ *
+ */
 public class JPnlSwitch extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = 9L;
-	private JRadioButton rdbDefOp, rdbCryOp, rdbCmpOp, rdbNpOp;
+	
+	/**
+	 * Imposta la modalità di divisione di default
+	 * @see DefaultSplitter
+	 */
+	private JRadioButton rdbDefOp;
+	
+	/**
+	 * Imposta la modalità di divisione con crittografia
+	 * @see CryptSplitter
+	 */
+	private JRadioButton rdbCryOp;
+	
+	/**
+	 * Imposta la modalità di divisione con compressione
+	 * @see CompressionSplitter
+	 */
+	private JRadioButton rdbCmpOp;
+	
+	/**
+	 * Imposta la modalità di divisione impostando il numero delle parti
+	 * @see NPartSplitter
+	 */
+	private JRadioButton rdbNpOp;
+	
+	/**
+	 * Pannello per consentire il cambio dell'interfaccia (pannello) per l'insermento
+	 * dei dati per la divisone del file.
+	 * I layout usato da questo pannello è il cardLayout
+	 * @see CardLayout
+	 */
 	private JPanel pnlCards;
-	private JPnlOpSplit pnlDef, pnlCry, pnlCmp, pnlNP;
-	private String lastRdbSelected, lastFileSelected;
+	
+	/**
+	 * Pannello per l'inserimento dei dati per la divisone di default del file
+	 * @see DefaultSplitter
+	 */
+	private JPnlOpSplit pnlDef;
+
+	/**
+	 * Pannello per l'inserimento dei dati per la divisone con crittografia del file
+	 * @see CryptSplitter
+	 */
+	private JPnlOpSplit pnlCry;
+	
+	/**
+	 *  Pannello per l'inserimento dei dati per la divisone con compressione del file
+	 *  @see CompressionSplitter
+	 */
+	private JPnlOpSplit pnlCmp;
+	
+	/**
+	 * Pannello per l'inserimento dei dati per la divisone impostando il numero
+	 * delle parti del file
+	 * @see NPartSplitter
+	 */
+	private JPnlOpSplit pnlNP;
+	
+	/**
+	 * Nome dell'ultimo radioButton premuto, per evitare di rifare certe operazioni
+	 */
+	private String lastRdbSelected;
+	
+	/**
+	 * Percoso del file da dividere selezionato
+	 */
+	private String lastFileSelected;
 	
 	
 	public JPnlSwitch() {
@@ -75,6 +145,9 @@ public class JPnlSwitch extends JPanel implements ActionListener {
 	}
 	
 	
+	/**
+	 * Mostra il pannello adatto in base al radioButton premuto
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (!e.getActionCommand().equals(this.lastRdbSelected)) {
 			this.lastRdbSelected = e.getActionCommand();
@@ -101,6 +174,10 @@ public class JPnlSwitch extends JPanel implements ActionListener {
 	}
 	
 	
+	/**
+	 * Mostra il pannello adatto in base al tipo di splitter in ingresso
+	 * @param s Splitter
+	 */
 	public void setOperation(Splitter s) {
 		CardLayout cl = (CardLayout) (pnlCards.getLayout());
 		lastFileSelected = s.getFilePath();
@@ -134,6 +211,9 @@ public class JPnlSwitch extends JPanel implements ActionListener {
 	}
 	
 	
+	/**
+	 * Elimina le informazioni contenute negli splitter dei pannelli
+	 */
 	public void resetSplitter() {
 		pnlDef.setSplitter("");
 		pnlCry.setSplitter("");
@@ -142,6 +222,10 @@ public class JPnlSwitch extends JPanel implements ActionListener {
 	}
 	
 	
+	/**
+	 * Restituisce lo splitter in base al pannello attualmente visibile
+	 * @return Splitter del pannello attualmente visibile
+	 */
 	public Splitter getSplitter() {
 		Splitter spl = null;
 		
@@ -161,6 +245,10 @@ public class JPnlSwitch extends JPanel implements ActionListener {
 	}
 	
 	
+	/**
+	 * Disabilita/abilita i radiobutton
+	 * @param flag true abilita, false disabilita 
+	 */
 	protected void setAllEnabled(boolean flag) {
 		rdbDefOp.setEnabled(flag);
 		rdbCryOp.setEnabled(flag);

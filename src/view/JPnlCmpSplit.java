@@ -14,14 +14,47 @@ import javax.swing.JTextField;
 import split.CompressionSplitter;
 import split.Splitter;
 
+
+/**
+ * Pannello per la modifica/creazione del CompressionSplitter
+ * @author Filippo Altimani
+ * @see CompressionSplitter
+ */
 public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 	
 	private static final long serialVersionUID = 7L;
+	
+	/**
+	 * Text box per l'inserimento della dimensione di una parte nella lista
+	 */
 	private JTextField txfSize;
+	
+	/**
+	 * Text box (disabilitata) per mostrare la differenza tra la dimensione del
+	 * file da dividere e la somma delle dimensioni per ogni parte 
+	 * contenute nella lista
+	 */
 	private JTextField txfRemainSize;
+	
+	/**
+	 * Pulsante per aggiungere la dimensione contenuta {@link #txfSize}
+	 * nella lista
+	 */
 	private JButton btnAddPart;
+	
+	/**
+	 * Pulsante per rimuovere dalla lista la dimensione selezionata nella {@link #cmbParts}
+	 */
 	private JButton btnRmvPart;
+	
+	/**
+	 * Lista delle dimensioni per ogni parte
+	 */
 	private JComboBox<Long> cmbParts;
+	
+	/**
+	 * CompressionSplitter da modificare/creare
+	 */
 	private CompressionSplitter spl;
 	
 	
@@ -35,6 +68,10 @@ public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 	}
 	
 	
+	/**
+	 * Il layout del pannello e il BoxLayout
+	 * @see BoxLayout
+	 */
 	protected void initialize() {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
@@ -42,7 +79,7 @@ public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 		JLabel lblSize = new JLabel("Dimensione (B):");
 		txfSize = new JTextField("",4);
 		btnAddPart = new JButton("+");
-		cmbParts = new JComboBox<Long>();
+		cmbParts = new JComboBox<>();
 		btnRmvPart = new JButton("-");
 		JPanel pnlRemainSize = new JPanel();
 		JLabel lblRemainSize = new JLabel("Dimensione rimasta (B):");
@@ -68,6 +105,9 @@ public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 	}
 	
 	
+	/**
+	 * Lo splitter in ingresso deve essere del tipo CompressionSplitter
+	 */
 	public void setSplitter(Splitter s) {
 		if (s instanceof CompressionSplitter) {
 			this.spl = (CompressionSplitter) s;
@@ -92,6 +132,9 @@ public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 	}
 	
 	
+	/**
+	 * Svuota la lista e la text box per l'inserimento 
+	 */
 	protected void setAllEnabled(boolean flag) {
 		txfSize.setEnabled(flag);
 		btnAddPart.setEnabled(flag);
@@ -120,27 +163,27 @@ public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 	
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("+")){
-			if (isNumeric(txfSize.getText())){
-				Long size = Long.parseLong(txfSize.getText());
-				if (size > 0 && (Long.parseLong(txfRemainSize.getText())-size) >= 0) {
-					cmbParts.addItem(size);
-					cmbParts.setSelectedIndex(cmbParts.getItemCount()-1);
-					this.setRemainSize();
-				}
-			}
-			
-		} else if (e.getActionCommand().equals("-")){
-			if (cmbParts.getSelectedIndex()>=0) {
-				cmbParts.removeItemAt(cmbParts.getSelectedIndex());
+		if (e.getActionCommand().equals("+") && isNumeric(txfSize.getText())){
+			Long size = Long.parseLong(txfSize.getText());
+			if (size > 0 && (Long.parseLong(txfRemainSize.getText())-size) >= 0) {
+				cmbParts.addItem(size);
 				cmbParts.setSelectedIndex(cmbParts.getItemCount()-1);
 				this.setRemainSize();
 			}
 			
+		} else if (e.getActionCommand().equals("-") && cmbParts.getSelectedIndex()>=0){
+			cmbParts.removeItemAt(cmbParts.getSelectedIndex());
+			cmbParts.setSelectedIndex(cmbParts.getItemCount()-1);
+			this.setRemainSize();
 		}
 	}
 	
 	
+	/**
+	 * Calcola la differenza tra la dimensione del file da dividere e la somma delle
+	 * dimensioni nella {@link #cmbParts} e disabilita o abilita i pulsanti per
+	 * l'inserimento delle dimensioni
+	 */
 	private void setRemainSize() {
 		int size = cmbParts.getItemCount();
 		int totSize = 0;
@@ -149,15 +192,9 @@ public class JPnlCmpSplit extends JPnlOpSplit implements ActionListener  {
 			
 		int remainSize = (int)this.spl.getFileSize()-totSize;
 		
-		if (remainSize<=0)
-			btnAddPart.setEnabled(false);
-		else 
-			btnAddPart.setEnabled(true);
+		btnAddPart.setEnabled(((remainSize<=0) ? false : true));
 		
-		if (totSize==0)
-			btnRmvPart.setEnabled(false);
-		else 
-			btnRmvPart.setEnabled(true);
+		btnRmvPart.setEnabled(((totSize==0) ? false : true));
 		
 		txfRemainSize.setText(Integer.toString(remainSize));
 	}

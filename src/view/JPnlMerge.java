@@ -8,15 +8,50 @@ import java.awt.Dimension;
 import java.awt.event.*;
 
 
+/**
+ * Pannello per ricomporre un file scegliendo una parte del file da ricomporre ed
+ * eventualmente la password per decriptare il contenuto delle parti
+ * @author Filippo Altimani
+ * @see merge.Merger
+ * @see FileInterpreter
+ */
 public class JPnlMerge extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = 3L;
 	
-	private JTextField txfSrc, txfKey;
-	private JLabel lblKey;
-	private JButton btnSrc, btnRun;
+	/**
+	 * Text box (disabilitata) per mostrare il percorso della perte del file
+	 * da ricomporre
+	 */
+	private JTextField txfSrc;
+	
+	/**
+	 * Text box per l'inserimento della password con la quale eventualmente decifrare
+	 * il contenuto delle parti del file da ricomporre
+	 */
+	private JTextField txfKey;
+	
+	/**
+	 * Pulsante per aprire l'esplora risorse e selezionare
+	 * la parte del file che si desidere ricomporre
+	 */
+	private JButton btnSrc;
+	
+	/**
+	 * Pulsante per avviare ricomposizione
+	 */
+	private JButton btnRun;
+	
+	/**
+	 * Oggetto in grado di capire il tipo di divisione ricevuta da un file
+	 * partendo dal nome di una delle sue parti
+	 */
 	private FileInterpreter interpreter;
 	
+	/**
+	 * Il layout del pannello e il BoxLayout
+	 * @see BoxLayout
+	 */
 	public JPnlMerge() {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
@@ -24,7 +59,7 @@ public class JPnlMerge extends JPanel implements ActionListener {
 		txfSrc = new JTextField("",25);
 		btnSrc = new JButton("Cerca");
 		JPanel pnlKey = new JPanel();
-		lblKey = new JLabel("Chiave (16 chr):");
+		JLabel lblKey = new JLabel("Chiave (16 chr):");
 		txfKey = new JTextField("", 14);
 		btnRun = new JButton("Ricomponi");
 		interpreter = new FileInterpreter();
@@ -51,33 +86,32 @@ public class JPnlMerge extends JPanel implements ActionListener {
 
 		btnRun.setAlignmentX(CENTER_ALIGNMENT);
 
-		//this.add(new JLabel("Inserire il percorso del file che contiene la prima parte del file da ricostruire"));
 		this.add(Box.createRigidArea(new Dimension(0,20)));
 		this.add(pnlSrc);
 		this.add(pnlKey);
 		this.add(btnRun);
 	}
 	
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("Cerca")) {
 			JFileChooser fc = new JFileChooser();
 			int response = fc.showOpenDialog(this);
 			
-			if (response == JFileChooser.APPROVE_OPTION) {
-				if (fc.getSelectedFile().length()>0) {
+			if (response == JFileChooser.APPROVE_OPTION && fc.getSelectedFile().length()>0) {
 					
-					this.interpreter.setMerger(fc.getSelectedFile().getAbsolutePath());
-					
-					if (!this.txfKey.getText().equals(""))
-						this.interpreter.setPassword(txfKey.getText());
-					
-					this.txfSrc.setText(fc.getSelectedFile().getAbsolutePath());
-					this.btnRun.setEnabled(true);
-				}
+				this.interpreter.setMerger(fc.getSelectedFile().getAbsolutePath());
+				
+				this.txfSrc.setText(fc.getSelectedFile().getAbsolutePath());
+				this.btnRun.setEnabled(true);
 	        }
 		}
 		
 		else if (e.getActionCommand().equals("Ricomponi")) {
+			
+			if (!this.txfKey.getText().equals(""))
+				this.interpreter.setPassword(txfKey.getText());
+			
 			String warningMessage = this.interpreter.check();
 			
 			if (!warningMessage.equals(""))
@@ -86,6 +120,13 @@ public class JPnlMerge extends JPanel implements ActionListener {
 				String errorMessage = this.interpreter.merge();
 				if (!errorMessage.equals(""))
 					JOptionPane.showMessageDialog(null, errorMessage, "Errore ricomposizione file", JOptionPane.ERROR_MESSAGE);
+				else
+					JOptionPane.showMessageDialog(null, "Ricomposizione file terminata", "Ricomposizione terminata", JOptionPane.INFORMATION_MESSAGE);
+				
+				this.btnRun.setEnabled(false);
+				this.txfKey.setText("");
+				this.txfSrc.setText("");
+				this.interpreter = new FileInterpreter();
 			}
 		}
 	}

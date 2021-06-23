@@ -15,7 +15,7 @@ import split.Splitter;
  * Oggetto che permette di ottenere il file originale da una cartella compressa, 
  * contenente le sue parti, creata in precedenza con CompressionSplitter
  * @author Filippo Altimani
- * @see CompressionSplitter
+ * @see split.CompressionSplitter
  *
  */
 public class CompressionMerger extends Merger {

@@ -16,8 +16,8 @@ public abstract class Merger {
 	protected File originalFile;
 	
 	/**
-	 * 
-	 * @param originalFilePath 
+	 * Crea l'oggetto con il nome del file da ricomporre
+	 * @param originalFilePath Nome del file da ricomporre
 	 * @see #setOriginalFile(String)
 	 */
 	protected Merger (String originalFilePath) {

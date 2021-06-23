@@ -30,6 +30,7 @@ public class JFrmMain extends JFrame{
 	 */
 	private JPnlMerge pnlR;
 	
+	
 	public JFrmMain() {
 		
 		super("File splitter");

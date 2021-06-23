@@ -11,11 +11,29 @@ import javax.swing.JTextField;
 import split.CryptSplitter;
 import split.Splitter;
 
+
+/**
+ * Pannello per la modifica/creazione del CryptSplitter
+ * @author Filippo Altimani
+ * @see CryptSplitter
+ */
 public class JPnlCrySplit  extends JPnlOpSplit {
 	
 	private static final long serialVersionUID = 6L;
-	private JLabel lblSize, lblKey;
-	private JTextField txfSize, txfKey;
+	
+	/**
+	 * Text box per l'inserimento della dimensione di ogni parte
+	 */
+	private JTextField txfSize;
+	
+	/**
+	 * Text box per l'inserimento della password con coi codificare le parti
+	 */
+	private JTextField txfKey;
+	
+	/**
+	 * CryptSplitter da modificare/creare
+	 */
 	private CryptSplitter spl;
 	
 	
@@ -29,14 +47,18 @@ public class JPnlCrySplit  extends JPnlOpSplit {
 	}
 	
 	
+	/**
+	 * Il layout del pannello e il BoxLayout
+	 * @see BoxLayout
+	 */
 	protected void initialize() {		
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
 		JPanel pnlSize = new JPanel();
-		lblSize = new JLabel("Dimensione (B):");
+		JLabel lblSize = new JLabel("Dimensione (B):");
 		txfSize = new JTextField("", 10);
 		JPanel pnlKey = new JPanel();
-		lblKey = new JLabel("Chiave (16 chr):");
+		JLabel lblKey = new JLabel("Chiave (16 chr):");
 		txfKey = new JTextField("", 14);
 		
 		txfSize.addKeyListener(new KeyAdapter() {

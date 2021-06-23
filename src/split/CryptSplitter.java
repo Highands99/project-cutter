@@ -1,11 +1,16 @@
 package split;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-import javax.crypto.BadPaddingException;
+import java.util.ArrayList;
+
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.CipherOutputStream;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -98,14 +103,20 @@ public class CryptSplitter extends DefaultSplitter {
 	}
 	
 	
-	/**
-	 * Filtra i byte in ingresso codificandoli con la chiave
-	 * @throws IllegalBlockSizeException sollevata dall'encoder di tipo Chiper
-	 * @throws BadPaddingException sollevata dall'encoder di tipo Chiper
-	 */
 	@Override
-	protected byte[] processByte(byte[] b) throws IllegalBlockSizeException, BadPaddingException {
-        return this.encoder.doFinal(b);
+	protected void writePart(ArrayList<byte[]> b, File part) throws IOException {
+		
+	    byte[] iv = this.encoder.getIV();
+
+	    try (
+	    		FileOutputStream fOut = new FileOutputStream(part);
+	    		CipherOutputStream cryOut = new CipherOutputStream(fOut, this.encoder)
+	    	) {
+	    	cryOut.write(iv);
+	        for (byte[] by : b)
+	        	cryOut.write(by);
+	    }
+			
 	}
 	
 	

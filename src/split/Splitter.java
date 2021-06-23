@@ -6,9 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-
 
 /**
  * Classe astratta per dividere un file in più parti 
@@ -123,19 +120,6 @@ public abstract class Splitter {
 	
 	
 	/**
-	 * Filtra i byte passati come parametro.  
-	 * @param b Byte da filtrare
-	 * @return Byte filtrati
-	 * @throws IllegalBlockSizeException Questa eccezione viene sollevata da un overload del metodo effettuato dalla classe CryptoSplitter
-	 * @throws BadPaddingException Questa eccezione viene sollevata da un overload del metodo effettuato dalla classe CryptoSplitter
-	 * @see CryptoSplitter
-	 */
-	protected byte[] processByte(byte[] b) throws IllegalBlockSizeException, BadPaddingException {
-		return b;
-	}
-	
-	
-	/**
 	 * Crea il un file contenente i byte passati come parametri
 	 * @param b Byte che si voglio inserire nel file
 	 * @param part File su cui si vogliono scrivere i byte
@@ -174,9 +158,9 @@ public abstract class Splitter {
 					String partPath = this.getFilePath() + "." + (partsCounter+1) + this.getExtension();
 					File part = new File(partPath);
 					
-					long partSize = this.getPartSize();
-					if (partSize <= 0)
-						partSize = remainingSize;
+					long tmpSize = this.getPartSize();
+					long partSize = ((tmpSize == 0) ? remainingSize : tmpSize);
+
 
 					long partSizeBuffered = partSize;
 					ArrayList<byte[]> buffer = new ArrayList<>();
@@ -187,7 +171,7 @@ public abstract class Splitter {
 						if (partSizeBuffered<Integer.MAX_VALUE)
 							sizeRead = (int)partSizeBuffered;
 		
-						buffer.add(this.processByte(fin.readNBytes(sizeRead)));
+						buffer.add(fin.readNBytes(sizeRead));
 						partSizeBuffered -= sizeRead;
 					}
 					
@@ -202,14 +186,11 @@ public abstract class Splitter {
 			} catch (IOException e) {
 				e.printStackTrace();
 				returnMessage += "Errore I/O";
-
-			} catch (IllegalBlockSizeException | BadPaddingException e) {
-				e.printStackTrace();
-				returnMessage += "Errore di criptazione";
 			}
 			
 		}
 		
 		return returnMessage;
 	}
+	
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -20,7 +21,7 @@ public class CompressionSplitter extends Splitter {
 	/**
 	 *  Lista di dimensioni in byte per ogni parte
 	 */
-	private ArrayList<Long> partsSize;
+	private List<Long> partsSize;
 	
 	/**
 	 * Oggetto per la gestione dell'output compresso
@@ -51,7 +52,7 @@ public class CompressionSplitter extends Splitter {
 	 * Ritorna la lista di dimensioni per ogni parte
 	 * @return Lista di dimensioni per ogni parte
 	 */
-	public ArrayList<Long> getPartsList() {
+	public List<Long> getPartsList() {
 		return this.partsSize;
 	}
 	
@@ -60,7 +61,7 @@ public class CompressionSplitter extends Splitter {
 	 * Imposta la lista di dimensioni per ogni parte
 	 * @param pl Lista di dimensioni per ogni parte
 	 */
-	public void setPartsList(ArrayList<Long> pl) {
+	public void setPartsList(List<Long> pl) {
 		this.partsSize.clear(); 
 		this.partsSize = pl;
 	}
@@ -174,7 +175,7 @@ public class CompressionSplitter extends Splitter {
 	public String split() {
 		String returnMessage = "";
 		try {
-			File folder = new File(this.getFilePath()+Splitter.EXTENSION+".zip");
+			File folder = new File(this.getFilePath()+"."+Splitter.EXTENSION+".zip");
 			zipFolder = new ZipOutputStream(new FileOutputStream(folder));
 			returnMessage = super.split();
 			zipFolder.close();

@@ -13,8 +13,8 @@ import split.Splitter;
  * le parti generate in precedenza con DefaultSplitter o NPartSplitter a patto che si 
  * trovino tutti nella stessa cartella
  * @author Filippo Altimani
- * @see DefaultSplitter
- * @see NPartSplitter
+ * @see split.DefaultSplitter
+ * @see split.NPartSplitter
  */
 public class DefaultMerger extends Merger {
 	
@@ -33,9 +33,10 @@ public class DefaultMerger extends Merger {
 				
 				while ((part = new File(this.originalFile.getAbsolutePath() + "." + nParts + "." + Splitter.EXTENSION)).canRead() && part.length()>0) {
 					try (FileInputStream fin = new FileInputStream(part)) {
-						int byteData=-1;
-						while ((byteData = fin.read())>0)
-							out.write(byteData);
+						byte[] dataBytes;
+						
+						while ((dataBytes=fin.readAllBytes()).length>0)
+							out.write(dataBytes);
 					}
 					nParts++;
 				}

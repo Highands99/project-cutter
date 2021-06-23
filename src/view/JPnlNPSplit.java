@@ -9,11 +9,24 @@ import javax.swing.JTextField;
 import split.NPartSplitter;
 import split.Splitter;
 
+
+/**
+ * Pannello per la modifica/creazione del NPartSplitter
+ * @author Filippo Altimani
+ * @see NPartSplitter
+ */
 public class JPnlNPSplit  extends JPnlOpSplit {
 	
 	private static final long serialVersionUID = 8L;
-	private JLabel lblNP;
+	
+	/**
+	 * Text box per l'inserimento del numero di parti da creare
+	 */
 	private JTextField txfNP;
+	
+	/**
+	 * NPartSplitter da modificare/creare
+	 */
 	private NPartSplitter spl;
 	
 	public JPnlNPSplit() {
@@ -26,7 +39,7 @@ public class JPnlNPSplit  extends JPnlOpSplit {
 	
 	
 	protected void initialize() {	
-		lblNP = new JLabel("Numero di parti: ");
+		JLabel lblNP = new JLabel("Numero di parti: ");
 		txfNP = new JTextField("", 6);
 		
 		txfNP.addKeyListener(new KeyAdapter() {

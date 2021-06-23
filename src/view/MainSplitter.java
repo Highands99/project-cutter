@@ -1,6 +1,11 @@
 package view;
 
 
+/**
+ * Avvia l'intero programma
+ * @author Filippo Altimani
+ * @see JFrmMain
+ */
 public class MainSplitter {
 
 	public static void main(String[] args) {
@@ -10,7 +15,6 @@ public class MainSplitter {
 		mainF.setLocationRelativeTo(null);
 			
 		mainF.setVisible(true);
-		
 	}
 
 }

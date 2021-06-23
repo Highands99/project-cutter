@@ -8,11 +8,24 @@ import javax.swing.JTextField;
 
 import split.*;
 
+
+/**
+ * Pannello per la modifica/creazione del DefaultSplitter
+ * @author Filippo Altimani
+ * @see DefaultSplitter
+ */
 public class JPnlDefSplit extends JPnlOpSplit {
 	
 	private static final long serialVersionUID = 5L;
-	private JLabel lblSize;
+	
+	/**
+	 * Text box per l'inserimento della dimensione di ogni parte
+	 */
 	private JTextField txfSize;
+	
+	/**
+	 * DefaultSplitter da modificare/creare
+	 */
 	private DefaultSplitter spl;
 	
 	
@@ -27,7 +40,7 @@ public class JPnlDefSplit extends JPnlOpSplit {
 	
 	
 	protected void initialize() {
-		lblSize = new JLabel("Dimensione (B): ");
+		JLabel lblSize = new JLabel("Dimensione (B): ");
 		txfSize = new JTextField("", 10);
 		
 		txfSize.addKeyListener(new KeyAdapter() {

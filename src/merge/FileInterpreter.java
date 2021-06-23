@@ -32,8 +32,7 @@ public class FileInterpreter {
 	
 	
 	/**
-	 * Costruisce l'oggetto a partire dal filePath
-	 * @param filePath Percorso + nome del file contenente una parte del del file originale da ricomporre
+	 * Costruisce l'oggetto senza inserire dati
 	 */
 	public FileInterpreter() {
 		this.merger = null;
@@ -47,8 +46,8 @@ public class FileInterpreter {
 	 */
 	public void setMerger(String filePath) {
 	
-		String[] fileNameParts = filePath.split(".");
-		
+		String[] fileNameParts = filePath.split("\\.");
+
 		if (fileNameParts[fileNameParts.length-1].equals("zip") && fileNameParts[fileNameParts.length-2].equals(Splitter.EXTENSION)) {
 			this.setOriginalFilePath(fileNameParts, fileNameParts.length-2);
 			this.merger = new CompressionMerger(originalFilePath);
@@ -77,7 +76,7 @@ public class FileInterpreter {
 	/**
 	 * Se il tipo del merger lo permette, gli viene passato come parametro
 	 * la passaword con la quale decifrare la parti del file originale
-	 * @param psw
+	 * @param psw Password per deficrare il contenuto delle parti
 	 */
 	public void setPassword(String psw) {
 		if (merger instanceof CryptMerger)
